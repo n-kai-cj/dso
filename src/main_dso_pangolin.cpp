@@ -28,7 +28,8 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
+//#include <unistd.h>
+#include <io.h>
 
 #include "IOWrapper/Output3DWrapper.h"
 #include "IOWrapper/ImageDisplay.h"
@@ -79,17 +80,17 @@ void my_exit_handler(int s)
 	exit(1);
 }
 
-void exitThread()
-{
-	struct sigaction sigIntHandler;
-	sigIntHandler.sa_handler = my_exit_handler;
-	sigemptyset(&sigIntHandler.sa_mask);
-	sigIntHandler.sa_flags = 0;
-	sigaction(SIGINT, &sigIntHandler, NULL);
+// void exitThread()
+// {
+// 	struct sigaction sigIntHandler;
+// 	sigIntHandler.sa_handler = my_exit_handler;
+// 	sigemptyset(&sigIntHandler.sa_mask);
+// 	sigIntHandler.sa_flags = 0;
+// 	sigaction(SIGINT, &sigIntHandler, NULL);
 
-	firstRosSpin=true;
-	while(true) pause();
-}
+// 	firstRosSpin=true;
+// 	while(true) pause();
+// }
 
 
 
@@ -358,7 +359,7 @@ int main( int argc, char** argv )
 		parseArgument(argv[i]);
 
 	// hook crtl+C.
-	boost::thread exThread = boost::thread(exitThread);
+	//boost::thread exThread = boost::thread(exitThread);
 
 
 	ImageFolderReader* reader = new ImageFolderReader(source,calib, gammaCalib, vignette);
@@ -478,8 +479,9 @@ int main( int argc, char** argv )
                 struct timeval tv_now; gettimeofday(&tv_now, NULL);
                 double sSinceStart = sInitializerOffset + ((tv_now.tv_sec-tv_start.tv_sec) + (tv_now.tv_usec-tv_start.tv_usec)/(1000.0f*1000.0f));
 
-                if(sSinceStart < timesToPlayAt[ii])
-                    usleep((int)((timesToPlayAt[ii]-sSinceStart)*1000*1000));
+                if(sSinceStart < timesToPlayAt[ii]) {
+                    // usleep((int)((timesToPlayAt[ii]-sSinceStart)*1000*1000));
+				}
                 else if(sSinceStart > timesToPlayAt[ii]+0.5+0.1*(ii%2))
                 {
                     printf("SKIPFRAME %d (play at %f, now it is %f)!\n", ii, timesToPlayAt[ii], sSinceStart);

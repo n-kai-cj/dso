@@ -8,7 +8,7 @@ FIND_PATH(CHOLMOD_INCLUDE_DIR NAMES cholmod.h amd.h camd.h
     /sw/include/ufsparse
   )
 
-FIND_LIBRARY(CHOLMOD_LIBRARY NAMES cholmod
+FIND_LIBRARY(CHOLMOD_LIBRARY NAMES cholmod libcholmod
      PATHS
      ${SUITE_SPARSE_ROOT}/lib
      /usr/lib
@@ -17,7 +17,7 @@ FIND_LIBRARY(CHOLMOD_LIBRARY NAMES cholmod
      /sw/lib
    )
 
-FIND_LIBRARY(AMD_LIBRARY NAMES SHARED NAMES amd
+ FIND_LIBRARY(AMD_LIBRARY NAMES SHARED NAMES amd libamd
   PATHS
   ${SUITE_SPARSE_ROOT}/lib
   /usr/lib
@@ -26,7 +26,7 @@ FIND_LIBRARY(AMD_LIBRARY NAMES SHARED NAMES amd
   /sw/lib
   )
 
-FIND_LIBRARY(CAMD_LIBRARY NAMES camd
+FIND_LIBRARY(CAMD_LIBRARY NAMES camd libcamd
   PATHS
   ${SUITE_SPARSE_ROOT}/lib
   /usr/lib
@@ -112,7 +112,7 @@ FIND_PATH(CSPARSE_INCLUDE_DIR NAMES cs.h
   /sw/include/ufsparse
   )
 
-FIND_LIBRARY(CSPARSE_LIBRARY NAMES cxsparse
+FIND_LIBRARY(CSPARSE_LIBRARY NAMES cxsparse libcxsparse
   PATHS
   /usr/lib
   /usr/local/lib
